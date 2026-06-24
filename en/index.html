@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Matrix Hanzi Pro - Home</title>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-H5Z8WV4CPH"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H5Z8WV4CPH');
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Noto+Serif+SC:wght@400;500;700;900&amp;family=Ma+Shan+Zheng&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+<style>
+/* ============================================================================
+MATRIX HANZI ONLINE PRO — LIQUID GLASS + THỦY MẶC FIXED BUILD
+Self-contained CSS: không cần file CSS ngoài, tránh lỗi mất style khi deploy/test.
+Không dùng ảnh nền. Nền thư pháp/thủy mặc dựng bằng CSS thuần.
+============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Serif+SC:wght@500;700;900&family=Ma+Shan+Zheng&display=swap');
+
+:root {
+  --font-ui: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-hanzi: 'Noto Serif SC', serif;
+  --font-brush: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+
+  --bg-main: #030712;
+  --text-primary: #f8fbff;
+  --text-secondary: #a9b8c9;
+  --text-muted: #74869b;
+
+  --accent-neon: #18b7ff;
+  --accent-blue: #0284c7;
+  --accent-green: #10b981;
+  --accent-orange: #f59e0b;
+  --accent-red: #fb7185;
+
+  --glass-bg: rgba(9, 18, 31, 0.58);
+  --glass-bg-strong: rgba(10, 20, 34, 0.72);
+  --glass-input: rgba(255, 255, 255, 0.055);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-strong: rgba(122, 213, 255, 0.34);
+  --glass-highlight: rgba(255, 255, 255, 0.24);
+  --shadow-glass: 0 24px 70px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255,255,255,0.16);
+  --shadow-hover: 0 32px 90px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255,255,255,0.24);
+
+  --radius-sm: 14px;
+  --radius-md: 22px;
+  --radius-lg: 28px;
+}
+
+body.light-mode {
+  --bg-main: #f8f4ea;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #8a9aad;
+  --accent-neon: #0284c7;
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-strong: rgba(255, 255, 255, 0.76);
+  --glass-input: rgba(255, 255, 255, 0.46);
+  --glass-border: rgba(255, 255, 255, 0.82);
+  --glass-border-strong: rgba(2, 132, 199, 0.25);
+  --glass-highlight: rgba(255, 255, 255, 0.86);
+  --shadow-glass: 0 24px 70px rgba(15, 23, 42, 0.11), inset 0 1px 0 rgba(255,255,255,0.86);
+  --shadow-hover: 0 32px 90px rgba(15, 23, 42, 0.16), inset 0 1px 0 rgba(255,255,255,0.98);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { min-height: 100%; overflow-x: hidden; background: #030712; }
+body { min-height: 100dvh; overflow-x: hidden; }
+body {
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+  background: #030712;
+  isolation: isolate;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -6;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(24, 183, 255, 0.20), transparent 30%),
+    radial-gradient(circle at 82% 14%, rgba(16, 185, 129, 0.10), transparent 26%),
+    radial-gradient(circle at 52% 110%, rgba(2, 132, 199, 0.14), transparent 42%),
+    linear-gradient(135deg, #020409 0%, #07111e 48%, #02040a 100%);
+}
+body.light-mode::after {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(2, 132, 199, 0.12), transparent 28%),
+    radial-gradient(circle at 82% 12%, rgba(13, 148, 136, 0.10), transparent 28%),
+    radial-gradient(circle at 55% 105%, rgba(180, 83, 9, 0.06), transparent 42%),
+    linear-gradient(135deg, #f7f0df 0%, #fbfaf6 46%, #eef7f6 100%);
+}
+body.light-mode {
+  background: #f8f4ea;
+}
+html:has(body.light-mode) { background: #f8f4ea; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 78%);
+}
+body.light-mode::before {
+  background-image:
+    linear-gradient(rgba(15,23,42,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,0.018) 1px, transparent 1px);
+}
+
+/* CSS-only ink painting background */
+.liquid-ink-stage { position: fixed; inset: 0; z-index: -4; overflow: hidden; pointer-events: none; }
+.ink-sun {
+  position: absolute; top: clamp(70px, 9vw, 120px); right: clamp(40px, 10vw, 160px);
+  width: clamp(110px, 13vw, 180px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 42% 34%, rgba(255,255,255,.9), rgba(255,255,255,.16) 38%, transparent 70%), radial-gradient(circle, rgba(24,183,255,.18), transparent 72%);
+  filter: blur(1px); opacity: .38;
+}
+body.light-mode .ink-sun { background: radial-gradient(circle at 44% 36%, rgba(255,255,255,.88), rgba(224,141,68,.13) 45%, transparent 72%); opacity: .75; }
+.ink-calligraphy {
+  position: absolute; font-family: var(--font-brush); font-size: clamp(160px, 22vw, 360px); line-height: 1;
+  color: rgba(255,255,255,.05); filter: blur(.4px); user-select: none;
+}
+.ink-calligraphy-left { left: -3vw; top: 16vh; transform: rotate(-9deg); }
+.ink-calligraphy-right { right: -2vw; bottom: 4vh; transform: rotate(8deg); opacity: .72; }
+body.light-mode .ink-calligraphy { color: rgba(15,23,42,.06); }
+.ink-wash {
+  position: absolute; width: 58vw; height: 18vw; min-width: 620px; max-height: 260px;
+  border-radius: 55% 45% 60% 40% / 45% 50% 50% 55%;
+  background: radial-gradient(ellipse at 24% 52%, rgba(255,255,255,.10), transparent 35%), radial-gradient(ellipse at 60% 40%, rgba(125,191,213,.14), transparent 56%), linear-gradient(90deg, transparent, rgba(24,183,255,.075), transparent);
+  filter: blur(24px); opacity: .54; animation: inkFloat 18s ease-in-out infinite alternate;
+}
+.ink-wash-one { left: -18vw; top: 8vh; transform: rotate(-12deg); }
+.ink-wash-two { right: -22vw; bottom: 12vh; transform: rotate(14deg); animation-duration: 24s; animation-direction: alternate-reverse; }
+@keyframes inkFloat { from { translate: -10px -4px; scale: 1; } to { translate: 16px 10px; scale: 1.035; } }
+.ink-mountain { position: absolute; left: 50%; bottom: -2px; width: 128vw; min-width: 1080px; height: 34vh; transform: translateX(-50%); opacity: .42; }
+.ink-mountain-back { bottom: 5vh; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.004)); clip-path: polygon(0 100%,0 72%,8% 65%,17% 78%,28% 40%,38% 75%,49% 30%,61% 76%,72% 44%,83% 77%,92% 58%,100% 74%,100% 100%); }
+.ink-mountain-front { background: linear-gradient(180deg, rgba(24,183,255,.055), rgba(0,0,0,.26)); clip-path: polygon(0 100%,0 84%,10% 75%,18% 86%,26% 58%,36% 85%,46% 50%,56% 84%,65% 60%,74% 86%,84% 68%,92% 86%,100% 78%,100% 100%); }
+body.light-mode .ink-mountain-back { background: rgba(15,23,42,.055); opacity: .48; }
+body.light-mode .ink-mountain-front { background: linear-gradient(180deg, rgba(2,132,199,.05), rgba(15,23,42,.075)); opacity: .34; }
+
+.screen { min-height: 100dvh; }
+.dashboard-container { width: min(1180px, calc(100vw - 48px)); margin: 0 auto; padding: clamp(44px, 5vw, 64px) 0 72px; }
+.dash-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.10); }
+body.light-mode .dash-header { border-bottom-color: rgba(15,23,42,.08); }
+.brand-zone { display: flex; flex-direction: column; gap: 8px; }
+.brand-title-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.brand-zone h1 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1.06; font-weight: 900; letter-spacing: -0.06em; text-shadow: 0 14px 40px rgba(0,0,0,.25); }
+body.light-mode .brand-zone h1 { text-shadow: 0 10px 30px rgba(15,23,42,.06); }
+.neon-text { color: var(--accent-neon); text-shadow: 0 0 34px rgba(24,183,255,.32); }
+body.light-mode .neon-text { color: #0284c7; text-shadow: none; }
+.brand-slogan { color: var(--text-secondary); font-size: clamp(14.5px, 1.2vw, 16px); font-weight: 650; max-width: 640px; }
+.header-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+
+/* Glass primitives */
+.btn, .search-mimic-wrapper, .compact-top-panel, .launch-mode-card, .quizlet-giant-card, .config-panel, .source-dropdown-menu, .custom-select-dropdown, .guide-popup, .guide-trigger, input[type="text"], select, .custom-select-trigger, .source-dropdown-trigger, .file-dropzone {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+}
+.search-mimic-wrapper, .compact-top-panel, .launch-mode-card, .quizlet-giant-card, .config-panel, .guide-popup { position: relative; overflow: hidden; }
+.search-mimic-wrapper::after, .compact-top-panel::after, .launch-mode-card::after, .quizlet-giant-card::after, .config-panel::after, .guide-popup::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, var(--glass-highlight), transparent 28%, transparent 72%, rgba(255,255,255,.05)), radial-gradient(circle at 12% 0%, rgba(255,255,255,.18), transparent 34%);
+  opacity: .34; mix-blend-mode: screen;
+}
+body.light-mode .search-mimic-wrapper::after, body.light-mode .compact-top-panel::after, body.light-mode .launch-mode-card::after, body.light-mode .quizlet-giant-card::after, body.light-mode .config-panel::after, body.light-mode .guide-popup::after { mix-blend-mode: normal; opacity: .42; }
+.search-mimic-wrapper > *, .compact-top-panel > *, .launch-mode-card > *, .quizlet-giant-card > *, .config-panel > *, .guide-popup > * { position: relative; z-index: 1; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 800; cursor: pointer; white-space: nowrap; transition: all .22s cubic-bezier(.16,1,.3,1); font-family: var(--font-ui); }
+.btn:hover, .launch-mode-card:hover, .quizlet-giant-card:hover, .custom-select-trigger:hover, .source-dropdown-trigger:hover { transform: translateY(-2px); border-color: var(--glass-border-strong); box-shadow: var(--shadow-hover); }
+.btn-primary { background: linear-gradient(135deg, #10b981, #0d9488); color: white; border-color: rgba(255,255,255,.2); }
+.btn-danger { background: rgba(251,113,133,.14); border-color: rgba(251,113,133,.28); }
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 9px; font-weight: 850; font-size: 11px; letter-spacing: .01em; text-transform: uppercase; border: 1px solid var(--glass-border); background: rgba(255,255,255,.08); backdrop-filter: blur(14px); }
+.badge.free { color: var(--accent-neon); }
+.badge.premium { color: #c084fc; }
+.text-link-blog { text-decoration: none; width: fit-content; margin-top: 4px; }
+
+input[type="text"], select { width: 100%; padding: 14px 18px; border-radius: var(--radius-sm); font-family: var(--font-ui); font-size: 15px; font-weight: 700; outline: none; background: var(--glass-input); box-shadow: none; }
+input[type="text"]:focus, select:focus { border-color: var(--accent-neon); }
+
+.control-center-bar { margin-bottom: 22px; position: relative; z-index: 200; }
+.search-mimic-wrapper { display: flex; gap: 14px; align-items: center; padding: 10px; border-radius: var(--radius-md); }
+.main-selector-component { flex: 1; min-width: 0; }
+.custom-select-wrapper { position: relative; }
+.custom-select-trigger { min-height: 54px; padding: 15px 20px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-weight: 800; box-shadow: none; }
+.custom-select-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+
+  z-index: 99999;
+  display: none;
+
+  max-height: 380px;
+  overflow-y: auto;
+
+  border-radius: var(--radius-md);
+  padding: 8px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+body:not(.light-mode) .custom-select-dropdown {
+
+  background: rgba(3, 10, 22, 0.90);
+
+  backdrop-filter:
+    blur(46px)
+    saturate(1.8)
+    brightness(1.05);
+
+  -webkit-backdrop-filter:
+    blur(46px)
+    saturate(1.8)
+    brightness(1.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* =========================
+   LIGHT MODE
+========================= */
+body.light-mode .custom-select-dropdown {
+
+  background: rgba(255,255,255,0.72);
+
+  backdrop-filter:
+    blur(32px)
+    saturate(1.35)
+    brightness(1.02);
+
+  -webkit-backdrop-filter:
+    blur(32px)
+    saturate(1.35)
+    brightness(1.02);
+
+  border: 1px solid rgba(255,255,255,.75);
+
+  box-shadow:
+    0 20px 60px rgba(15,23,42,.10),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+.custom-select-dropdown.active, .custom-select-dropdown.show { display: block !important; }
+.custom-select-option { padding: 12px 16px; border-radius: 12px; color: var(--text-primary); cursor: pointer; font-size: 14px; font-weight: 750; }
+.custom-select-option:hover, .source-dropdown-menu .tool-btn:hover { background: rgba(255,255,255,.10); }
+body.light-mode .custom-select-option:hover, body.light-mode .source-dropdown-menu .tool-btn:hover { background: rgba(2,132,199,.08); }
+.custom-select-option.selected { background: rgba(24,183,255,.12); color: var(--accent-neon); }
+.custom-select-group-label { padding: 12px 16px 6px; color: var(--text-muted); font-size: 11px; font-weight: 900; text-transform: uppercase; }
+.source-dropdown-wrapper { position: relative; }
+.source-dropdown-trigger { min-height: 54px; padding-inline: 24px; border-radius: var(--radius-sm); box-shadow: none; }
+.source-dropdown-trigger.active { border-color: var(--accent-neon); color: var(--accent-neon); }
+.source-dropdown-menu { position: absolute; top: calc(100% + 8px); right: 0; width: 240px; display: none; z-index: 9999; border-radius: var(--radius-md); padding: 8px; }
+.source-dropdown-menu.show { display: block; }
+.source-dropdown-menu .tool-btn { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; color: var(--text-primary); cursor: pointer; font-weight: 750; }
+.source-dropdown-menu .tool-btn.active { background: rgba(16,185,129,.12); color: var(--accent-green); }
+
+.panels-display-container { margin-bottom: 22px; position: relative; z-index: 100; }
+.config-panel { display: none; padding: 24px; border-radius: var(--radius-md); margin-bottom: 18px; }
+.config-panel.active { display: block; }
+.config-panel h3 { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .02em; margin-bottom: 14px; font-weight: 900; }
+.form-group { margin-bottom: 16px; }
+.file-dropzone { padding: 26px; border-style: dashed; text-align: center; border-radius: var(--radius-sm); color: var(--text-secondary); cursor: pointer; box-shadow: none; }
+
+.compact-top-panel { display: flex; align-items: center; justify-content: space-between; gap: clamp(24px, 3vw, 36px); padding: clamp(22px, 2.4vw, 30px); margin-bottom: clamp(36px, 4vw, 52px); border-radius: var(--radius-lg); }
+.range-selector-block { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.range-selector-block label { font-size: 11.5px; color: var(--text-secondary); font-weight: 900; text-transform: uppercase; letter-spacing: .02em; }
+.helper-text { color: var(--text-muted); font-size: 11.5px; }
+.action-trigger-row-primary { flex: 0 0 min(280px, 32%); }
+.btn-massive-accent { width: 100%; min-height: 56px; background: linear-gradient(135deg, #14b8ff 0%, #0284c7 48%, #0f766e 100%); color: #fff; border-color: rgba(255,255,255,.30); font-size: 17px; box-shadow: 0 18px 45px rgba(2,132,199,.34), inset 0 1px 0 rgba(255,255,255,.32); overflow: hidden; }
+.btn-massive-accent:hover { filter: brightness(1.08) saturate(1.08); transform: translateY(-3px); }
+
+.quizlet-core-section { margin-bottom: clamp(30px, 3.4vw, 46px); }
+.launch-mode-grid {
+  --mode-gap: 10px;
+  --mode-cut: 34px;
+  --mode-height: 82px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--mode-gap);
+  align-items: stretch;
+  position: relative;
+  isolation: isolate;
+}
+.launch-mode-card {
+  position: relative;
+  min-height: var(--mode-height);
+  padding: 0 clamp(22px, 2.4vw, 34px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+  border-radius: 0;
+  border: 1px solid rgba(255,255,255,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)), var(--glass-bg);
+  box-shadow: 0 22px 62px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.14);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  clip-path: polygon(0 0, calc(100% - var(--mode-cut)) 0, 100% 100%, 0 100%);
+  transition: border-color .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s cubic-bezier(.16,1,.3,1), filter .2s ease;
+}
+.launch-mode-card:first-child { clip-path: polygon(0 0, calc(100% - var(--mode-cut)) 0, 100% 100%, 0 100%); }
+.launch-mode-card:nth-child(2) { clip-path: polygon(var(--mode-cut) 0, calc(100% - var(--mode-cut)) 0, 100% 100%, 0 100%); }
+.launch-mode-card:nth-child(3) { clip-path: polygon(var(--mode-cut) 0, 100% 0, 100% 100%, 0 100%); }
+.launch-mode-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  clip-path: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.18), transparent 28%, transparent 72%, rgba(255,255,255,.04)),
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.14), transparent 38%);
+  opacity: .28;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+body.light-mode .launch-mode-card {
+  background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.54)), var(--glass-bg);
+  border-color: rgba(255,255,255,.86);
+  box-shadow: 0 22px 62px rgba(15,23,42,.10), inset 0 1px 0 rgba(255,255,255,.95);
+}
+body.light-mode .launch-mode-card::after { mix-blend-mode: normal; opacity: .38; }
+.launch-mode-card:hover, .launch-mode-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(24,183,255,.58);
+  box-shadow: 0 30px 80px rgba(0,0,0,.42), 0 0 0 1px rgba(24,183,255,.16), inset 0 1px 0 rgba(255,255,255,.22);
+}
+body.light-mode .launch-mode-card:hover, body.light-mode .launch-mode-card:focus-visible {
+  box-shadow: 0 30px 80px rgba(15,23,42,.15), 0 0 0 1px rgba(2,132,199,.18), inset 0 1px 0 rgba(255,255,255,1);
+}
+.launch-mode-card.active {
+  color: #fff;
+  border-color: rgba(24,183,255,.82);
+  background:
+    linear-gradient(135deg, rgba(20,184,255,.22), rgba(15,118,110,.10)),
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.025)),
+    var(--glass-bg-strong);
+  box-shadow: 0 28px 90px rgba(2,132,199,.25), 0 0 0 1px rgba(24,183,255,.18), inset 0 1px 0 rgba(255,255,255,.24);
+}
+body.light-mode .launch-mode-card.active {
+  color: #0f172a;
+  background:
+    linear-gradient(135deg, rgba(14,165,233,.16), rgba(13,148,136,.08)),
+    rgba(255,255,255,.72);
+  border-color: rgba(2,132,199,.62);
+  box-shadow: 0 28px 80px rgba(2,132,199,.16), 0 0 0 1px rgba(2,132,199,.12), inset 0 1px 0 rgba(255,255,255,1);
+}
+.launch-mode-label {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(15px, 1.45vw, 19px);
+  line-height: 1;
+  font-weight: 950;
+  font-style: italic;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.launch-mode-label::before,
+.launch-mode-label::after { content: none; }
+.launch-mode-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 12px);
+  transform: translateX(-50%) translateY(6px);
+  z-index: 20;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 48px));
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(16, 16, 18, .92);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 14px 36px rgba(0,0,0,.32);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+}
+.launch-mode-card:hover .launch-mode-tooltip,
+.launch-mode-card:focus-visible .launch-mode-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.quizlet-giant-modes-container { margin-bottom: clamp(44px, 4vw, 60px); }
+.quizlet-giant-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2vw, 28px); }
+.quizlet-giant-card { min-height: clamp(260px, 22vw, 310px); padding: clamp(26px, 2.3vw, 32px) clamp(22px, 2vw, 28px); border-radius: var(--radius-lg); cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all .25s cubic-bezier(.16,1,.3,1); }
+.quizlet-giant-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--card-glow, transparent); z-index: 1; }
+.card-mint { --card-glow: var(--accent-green); }
+.card-blue { --card-glow: var(--accent-neon); }
+.card-gold { --card-glow: var(--accent-orange); }
+.card-rose { --card-glow: var(--accent-red); }
+.quizlet-giant-card.active { background: linear-gradient(180deg, color-mix(in srgb, var(--card-glow) 18%, transparent), transparent), var(--glass-bg-strong); border-color: var(--card-glow); transform: translateY(-1px); }
+.giant-card-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
+.giant-card-number { font-size: 21px; line-height: 1; font-weight: 900; letter-spacing: -0.05em; opacity: .42; }
+.quizlet-giant-card.active .giant-card-number { opacity: .86; color: var(--card-glow); }
+.giant-card-badge { font-size: 11px; font-weight: 900; text-transform: uppercase; padding: 4px 8px; border-radius: 8px; background: rgba(255,255,255,.08); color: var(--text-secondary); }
+body.light-mode .giant-card-badge { background: rgba(15,23,42,.055); }
+.giant-card-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.giant-card-body h3 { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.22; font-weight: 900; }
+.giant-card-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.giant-card-footer { margin-top: 22px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.10); }
+body.light-mode .giant-card-footer { border-top-color: rgba(15,23,42,.08); }
+.status-indicator { font-size: 11px; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: flex; align-items: center; gap: 7px; }
+.status-indicator::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); display: inline-block; }
+.quizlet-giant-card.active .status-indicator { color: var(--text-primary); }
+.quizlet-giant-card.active .status-indicator::before { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+
+.mh-trust-note { max-width: 480px; margin: 48px auto 0; text-align: center; opacity: .62; font-size: 12px; line-height: 1.55; color: var(--text-secondary); }
+.mh-trust-note a { color: var(--accent-neon); text-decoration: none; font-weight: 700; }
+.mh-trust-note a:hover { text-decoration: underline; }
+.guide-trigger { position: fixed; left: 24px; bottom: 24px; z-index: 9000; padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 850; cursor: pointer; }
+.guide-popup-wrap { position: fixed; inset: 0; z-index: 2147483000; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(2,5,10,.72); backdrop-filter: blur(10px); }
+.guide-popup-wrap.active { display: flex; }
+.guide-popup { width: min(900px, 94vw); max-height: 86dvh; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); }
+.guide-header, .guide-footer { flex: 0 0 auto; padding: 16px 24px; background: rgba(255,255,255,.055); }
+.guide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,.10); }
+.guide-header h4 { font-size: 16px; font-weight: 900; }
+.guide-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; }
+.guide-body { min-height: 240px; max-height: calc(86dvh - 120px); overflow: auto; background: rgba(0,0,0,.30); display: flex; align-items: center; justify-content: center; }
+.guide-body img { width: 100%; height: auto; object-fit: contain; display: block; }
+.guide-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,.10); }
+.guide-btn { background: var(--glass-input); border: 1px solid var(--glass-border); color: var(--text-primary); padding: 9px 16px; border-radius: 12px; cursor: pointer; font-weight: 850; }
+.guide-indicator { color: var(--text-secondary); font-weight: 850; }
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .btn, .search-mimic-wrapper, .compact-top-panel, .launch-mode-card, .quizlet-giant-card, .config-panel, .source-dropdown-menu, .custom-select-dropdown, .guide-popup, .guide-trigger, input[type="text"], select, .custom-select-trigger, .source-dropdown-trigger, .file-dropzone { background: rgba(10,20,34,.94); }
+  body.light-mode .btn, body.light-mode .search-mimic-wrapper, body.light-mode .compact-top-panel, body.light-mode .launch-mode-card, body.light-mode .quizlet-giant-card, body.light-mode .config-panel, body.light-mode .source-dropdown-menu, body.light-mode .custom-select-dropdown, body.light-mode .guide-popup, body.light-mode .guide-trigger, body.light-mode input[type="text"], body.light-mode select, body.light-mode .custom-select-trigger, body.light-mode .source-dropdown-trigger, body.light-mode .file-dropzone { background: rgba(255,255,255,.96); }
+}
+
+@media (prefers-reduced-motion: reduce) { .ink-wash, .btn, .launch-mode-card, .quizlet-giant-card { animation: none !important; transition: none !important; } }
+@media (max-width: 1024px) { .quizlet-giant-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .quizlet-giant-card { min-height: 230px; } }
+@media (max-width: 768px) {
+  .dashboard-container { width: 100%; padding: 24px 16px 72px; }
+  .dash-header { flex-direction: column; gap: 18px; margin-bottom: 24px; padding-bottom: 20px; }
+  .brand-zone h1 { font-size: clamp(28px, 8vw, 34px); letter-spacing: -0.045em; }
+  .header-actions, .header-actions .btn, .theme-toggle-btn { width: 100%; align-items: stretch; }
+  .search-mimic-wrapper { flex-direction: column; align-items: stretch; border-radius: 20px; }
+  .source-dropdown-wrapper, .source-dropdown-trigger { width: 100%; }
+  .source-dropdown-menu { left: 0; right: auto; width: 100%; }
+  .compact-top-panel { flex-direction: column; align-items: stretch; gap: 18px; padding: 18px; margin-bottom: 28px; }
+  .action-trigger-row-primary { flex: none; width: 100%; }
+  .launch-mode-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; --mode-cut: 18px; --mode-height: 58px; }
+  .launch-mode-card { padding: 0 8px; }
+  .launch-mode-label { font-size: clamp(13px, 3.6vw, 15px); }
+  .launch-mode-tooltip { display: none; }
+  .quizlet-giant-grid { grid-template-columns: 1fr; gap: 16px; }
+  .quizlet-giant-card { min-height: 178px; padding: 22px 20px; }
+  .liquid-ink-stage { contain: paint; }
+  .ink-calligraphy { font-size: 170px; opacity: .42; filter: none; }
+  .ink-wash { min-width: 420px; filter: blur(16px); opacity: .36; animation: none; }
+  .ink-mountain { min-width: 680px; height: 22vh; }
+  .ink-sun { opacity: .28; filter: none; }
+  .btn, .search-mimic-wrapper, .compact-top-panel, .launch-mode-card, .quizlet-giant-card, .config-panel, .source-dropdown-menu, .custom-select-dropdown, .guide-popup, .guide-trigger, input[type="text"], select, .custom-select-trigger, .source-dropdown-trigger, .file-dropzone {
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  }
+  .guide-trigger { left: 16px; bottom: 16px; padding: 10px 16px; }
+}
+
+
+/* ============================================================================
+DROPDOWN CLIPPING FIX - HOME/INDEX
+Mục tiêu:
+- Dropdown thư viện và dropdown nguồn từ vựng không bị cắt chiều cao bởi glass wrapper.
+- Giữ hiệu ứng glass/card hiện tại nhưng cho phép menu absolute bung ra ngoài.
+============================================================================ */
+.control-center-bar,
+.search-mimic-wrapper,
+.main-selector-component,
+.custom-select-wrapper,
+.source-dropdown-wrapper {
+  overflow: visible !important;
+}
+
+/* search-mimic-wrapper đang chứa dropdown nên không được overflow:hidden */
+.search-mimic-wrapper {
+  position: relative !important;
+  z-index: 5000 !important;
+  overflow: visible !important;
+}
+
+/* Các phần tử cần hiệu ứng shine vẫn có thể hidden, nhưng wrapper chứa dropdown thì không */
+.compact-top-panel,
+.config-panel {
+  overflow: visible !important;
+}
+
+/* Đưa dropdown lên layer cao hơn toàn bộ card/panel phía dưới */
+.custom-select-wrapper {
+  position: relative !important;
+  z-index: 7000 !important;
+}
+
+.custom-select-dropdown {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  left: 0 !important;
+  right: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-height: min(460px, 68vh) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  z-index: 999999 !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: none;
+}
+.custom-select-dropdown.active,
+.custom-select-dropdown.show {
+  transform: translateZ(0);
+}
+
+.source-dropdown-wrapper {
+  position: relative !important;
+  z-index: 7000 !important;
+}
+
+.source-dropdown-menu {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  right: 0 !important;
+  width: min(280px, calc(100vw - 32px)) !important;
+  max-height: min(420px, 68vh) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  z-index: 999999 !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: none;
+}
+.source-dropdown-menu.show {
+  transform: translateZ(0);
+}
+
+/* Khi dropdown mở, đảm bảo thanh control nổi trên panel bên dưới */
+.control-center-bar:has(.custom-select-dropdown.active),
+.control-center-bar:has(.custom-select-dropdown.show),
+.control-center-bar:has(.source-dropdown-menu.show) {
+  z-index: 999998 !important;
+}
+
+/* Fallback cho trình duyệt không hỗ trợ :has() */
+.custom-select-dropdown.active,
+.custom-select-dropdown.show,
+.source-dropdown-menu.show {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Mobile: dropdown bung dạng panel theo màn hình, không bị hẹp/cắt */
+@media (max-width: 768px) {
+  .custom-select-dropdown {
+    max-height: min(520px, 72dvh) !important;
+  }
+
+  .source-dropdown-menu {
+    left: 0 !important;
+    right: auto !important;
+    width: 100% !important;
+    max-height: min(420px, 70dvh) !important;
+  }
+}
+
+
+
+/* ============================================================================
+NATIVE SELECT DARK MODE FIX - HOME RANGE SELECT
+Mục tiêu:
+- Fix dropdown native <select id="homeRangeSelect"> bị nền trắng/chữ mờ ở dark mode.
+- Giữ light mode hiện tại không đổi.
+- Áp dụng thêm cho select trong storage panel để nhất quán.
+============================================================================ */
+body:not(.light-mode) select,
+body:not(.light-mode) select option,
+body:not(.light-mode) select optgroup {
+  background-color: #07111f !important;
+  color: #f8fbff !important;
+}
+
+body:not(.light-mode) #homeRangeSelect,
+body:not(.light-mode) #userLibrarySelect,
+body:not(.light-mode) #presetSelect,
+body:not(.light-mode) select {
+  color-scheme: dark;
+  background: #07111f !important;
+  background-color: #07111f !important;
+  color: #f8fbff !important;
+  border-color: rgba(24, 183, 255, 0.36) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 0 0 1px rgba(24,183,255,0.08) !important;
+}
+
+body:not(.light-mode) #homeRangeSelect:focus,
+body:not(.light-mode) #userLibrarySelect:focus,
+body:not(.light-mode) select:focus {
+  background: #0b1626 !important;
+  background-color: #0b1626 !important;
+  color: #ffffff !important;
+  border-color: #18b7ff !important;
+  box-shadow:
+    0 0 0 3px rgba(24,183,255,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.10) !important;
+}
+
+/* Chromium/Edge thường nhận option:checked tốt hơn option:hover */
+body:not(.light-mode) select option:checked {
+  background: linear-gradient(135deg, #0284c7, #0f766e) !important;
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+body:not(.light-mode) select option:hover,
+body:not(.light-mode) select option:focus {
+  background-color: #0e7490 !important;
+  color: #ffffff !important;
+}
+
+/* Tăng độ đục của khối range panel trong dark mode để popup native không bị glow phía sau làm lóa */
+body:not(.light-mode) .compact-top-panel {
+  background: rgba(8, 16, 30, 0.82) !important;
+}
+
+/* Light mode giữ nền sáng sạch, tránh bị rule dark ảnh hưởng */
+body.light-mode select,
+body.light-mode select option,
+body.light-mode select optgroup {
+  color-scheme: light;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+body.light-mode select option:checked {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+</style>
+
+</head>
+<body>
+<div class="liquid-ink-stage" aria-hidden="true">
+  <div class="ink-sun"></div>
+  <div class="ink-calligraphy ink-calligraphy-left">汉</div>
+  <div class="ink-calligraphy ink-calligraphy-right">墨</div>
+  <div class="ink-wash ink-wash-one"></div>
+  <div class="ink-wash ink-wash-two"></div>
+  <div class="ink-mountain ink-mountain-back"></div>
+  <div class="ink-mountain ink-mountain-front"></div>
+</div>
+
+
+<div class="screen active" id="dashboardScreen">
+<div class="dashboard-container">
+  
+  <header class="dash-header">
+    <div class="brand-zone">
+      <div class="brand-title-row">
+        <h1>Matrix Hanzi Online <span class="neon-text">Pro</span></h1>
+        <div class="badge free" id="customerNameChip" style="display:none;">👤 <span id="customerNameDisplay"></span></div>
+      </div>
+      <p class="brand-slogan">You've learned a lot of vocabulary, but how much do you remember?</p>
+      <a class="badge premium text-link-blog" href="./blog/" target="_blank">📖 OUR BLOG HERE ➔</a>
+    </div>
+    
+    <div class="header-actions">
+      <button class="btn theme-toggle-btn" id="themeToggleBtn">☀️ Light Mode</button>
+      <div class="premium-status-box" style="display: none !important;">
+        <span class="badge free" id="premiumBadge">Free Account</span>
+        <div class="license-activation-zone" id="activationForm">
+          <div id="deviceCodeDisplay">Device Code: Loading...</div>
+          <input class="activation-input" id="premiumKeyInput" placeholder="Enter your PRE key..." type="text"/>
+          <button class="btn btn-primary" id="activatePremiumBtn">Activate</button>
+        </div>
+        <button class="btn btn-danger" id="resetPremiumBtn">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="control-center-bar">
+    <div class="search-mimic-wrapper">
+      <div class="main-selector-component">
+        <div class="custom-select-wrapper">
+          <select id="presetSelect" style="display:none;"></select>
+          <div class="custom-select-trigger" id="customSelectTrigger">
+            <span id="customSelectText">📚 System Library (Default)...</span>
+            <span class="custom-select-arrow">▼</span>
+          </div>
+          <div class="custom-select-dropdown" id="customSelectDropdown"></div>
+        </div>
+      </div>
+      
+      <div class="source-dropdown-wrapper">
+        <button class="btn source-dropdown-trigger" id="sourceMenuBtn" onclick="toggleSourceDropdown(event)">
+          ⚙️ <span>Vocabulary Source</span> <span class="arrow-indicator">▼</span>
+        </button>
+        <div class="source-dropdown-menu" id="sourceMenuDropdown">
+          <div class="tool-btn active" onclick="openConfigPanel('panel-system', this); closeSourceDropdown();">
+            <span class="icon">📚</span> System Library
+          </div>
+          <div class="tool-btn" onclick="openConfigPanel('panel-link', this); closeSourceDropdown();">
+            <span class="icon">🔗</span> Import from Link
+          </div>
+          <div class="tool-btn" onclick="openConfigPanel('panel-file', this); closeSourceDropdown();">
+            <span class="icon">💻</span> Import from Computer
+          </div>
+          <div class="tool-btn" onclick="openConfigPanel('panel-storage', this); closeSourceDropdown();">
+            <span class="icon">💾</span> Personal Storage
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panels-display-container">
+    <div class="config-panel" id="panel-link">
+      <h3>Enter Custom Cloud Link (.txt / .csv URL)</h3>
+      <div class="form-group">
+        <input id="customUrlInput" placeholder="Paste your cloud link here..." type="text"/>
+      </div>
+      <div style="text-align: right;">
+        <button class="btn btn-primary" id="loadCustomUrlBtn">Load from Custom Cloud</button>
+      </div>
+    </div>
+    
+    <div class="config-panel" id="panel-file">
+      <h3>Import File Directly from Computer</h3>
+      <div class="form-group">
+        <div class="file-dropzone" id="dropZoneContainer">
+          <p id="fileDropText">Drag & drop or Click to browse .txt / .csv files from your computer</p>
+          <input accept=".txt,.csv" id="fileInput" style="display:none" type="file"/>
+        </div>
+      </div>
+    </div>
+    
+    <div class="config-panel" id="panel-storage">
+      <h3>Personal Storage</h3>
+      <div class="form-group">
+        <button class="btn" id="saveCurrentListBtn" style="width: 100%; margin-bottom: 16px; background: var(--accent-neon-dim); border-color: var(--accent-neon);">Save Current List to Browser</button>
+        <label>List of Saved Vocabulary Sets</label>
+        <select id="userLibrarySelect" style="margin-bottom: 16px;"></select>
+        <div style="display:flex; gap:12px;">
+          <button class="btn btn-primary" id="loadUserListBtn" style="flex:1;">Open List</button>
+          <button class="btn btn-danger" id="deleteUserListBtn" style="flex:1;">Delete List</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card lower-action-panel compact-top-panel">
+    <div class="range-selector-block">
+      <label for="homeRangeSelect">Practice Range (Applied to Pro Mode & Workspace)</label>
+      <div class="select-range-container">
+        <select id="homeRangeSelect"></select>
+      </div>
+      <p class="helper-text">* Select the starting vocabulary item if you want to continue your progress from yesterday.</p>
+    </div>
+
+    <div class="action-trigger-row-primary">
+      <button class="btn btn-massive-accent" id="startPracticeBtn">
+        <span>Start Practice  ➔</span>
+      </button>
+    </div>
+  </div>
+
+    <div class="quizlet-core-section">
+    <div class="launch-mode-grid" role="group" aria-label="Choose practice space">
+      <div class="launch-mode-card active" id="launchModeNormal" onclick="setLaunchMode('normal')" role="button" tabindex="0" aria-label="Normal mode - optimized vocabulary management space">
+        <span class="launch-mode-label">normal</span>
+        <span class="launch-mode-tooltip">Normal Mode · Optimized space for managing and reviewing vocabulary.</span>
+      </div>
+      <div class="launch-mode-card" id="launchModePro" onclick="setLaunchMode('pro')" role="button" tabindex="0" aria-label="Pro mode - focused high-performance study mode">
+        <span class="launch-mode-label">pro</span>
+        <span class="launch-mode-tooltip">Pro Mode · Deep focus, faster learning, fewer distractions.</span>
+      </div>
+      <div class="launch-mode-card" id="launchModeTyping" onclick="setLaunchMode('typing')" role="button" tabindex="0" aria-label="Typing mode - train Hanzi recall through accurate typing">
+        <span class="launch-mode-label">typing</span>
+        <span class="launch-mode-tooltip">Typing Mode · Train Hanzi visual recall through precise input.</span>
+      </div>
+    </div>
+  </div>
+
+<div class="quizlet-giant-modes-container">
+    <div class="quizlet-giant-grid">
+      
+      <div class="quizlet-giant-card card-mint active" id="optModeNormal" onclick="setVisualMode('normal')">
+        <div class="giant-card-header">
+          <span class="giant-card-number">01</span>
+          <span class="giant-card-badge">🔢 Default</span>
+        </div>
+        <div class="giant-card-body">
+          <h3>Default Sequential</h3>
+          <p>Fastest for review purposes.</p>
+        </div>
+        <div class="giant-card-footer">
+          <span class="status-indicator">Currently Selected</span>
+        </div>
+      </div>
+      
+      <div class="quizlet-giant-card card-blue" id="optModeRandom" onclick="setVisualMode('random')">
+        <div class="giant-card-header">
+          <span class="giant-card-number">02</span>
+          <span class="giant-card-badge">🔀 Random</span>
+        </div>
+        <div class="giant-card-body">
+          <h3>🔀 Random</h3>
+          <p>Maximize reflexive capabilities.</p>
+        </div>
+        <div class="giant-card-footer">
+          <span class="status-indicator">Activated</span>
+        </div>
+      </div>
+      
+      <div class="quizlet-giant-card card-gold" id="optModeForgotten" onclick="setVisualMode('forgotten')">
+        <div class="giant-card-header">
+          <span class="giant-card-number">03</span>
+          <span class="giant-card-badge">⭐in-depth review</span>
+        </div>
+        <div class="giant-card-body">
+          <h3>⭐ In-Depth Review</h3>
+          <p>System automatically filters and displays only the difficult words you have marked for review.</p>
+        </div>
+        <div class="giant-card-footer">
+          <span class="status-indicator">Activated</span>
+        </div>
+      </div>
+      
+      <div class="quizlet-giant-card card-rose" id="optModeWrong" onclick="setVisualMode('wrong')">
+        <div class="giant-card-header">
+          <span class="giant-card-number">04</span>
+          <span class="giant-card-badge">❌ Fix Mistakes</span>
+        </div>
+        <div class="giant-card-body">
+          <h3>Fix Mistakes</h3>
+          <p>Smart mode aggregates all the words you just typed incorrectly to force you to practice them repeatedly until you get them right.</p>
+        </div>
+        <div class="giant-card-footer">
+          <span class="status-indicator">Activated</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="mh-trust-note" aria-label="Matrix Hanzi trust information">
+    <p>A complete workspace to train Hanzi recall every day.</p>
+    <p>Built by an independent creator — contact: <a href="mailto:matrixhanzi@gmail.com">matrixhanzi@gmail.com</a></p>
+    <p>Free to use • No login • No data collection • Supported by Google Ads</p>
+  </div>
+
+</div>
+</div>
+
+<button class="guide-trigger" onclick="toggleGuidePopup()">💡 Guide</button>
+<div aria-hidden="true" class="guide-popup-wrap" id="guidePopupWrap">
+<div class="guide-popup" id="guidePopupBox">
+  <div class="guide-header" id="guideHeader">
+    <h4>📌 MATRIXHAZI - Daily Hanzi Practice and Training</h4>
+    <button class="guide-close" onclick="toggleGuidePopup()">✖</button>
+  </div>
+  <div class="guide-body">
+    <img alt="Slide" id="guideSlideImg" src=""/>
+  </div>
+  <div class="guide-footer">
+    <button class="guide-btn" id="guidePrevBtn" onclick="changeGuideSlide(-1)">◀ Before</button>
+    <span class="guide-indicator" id="guideIndicator">1 / 3</span>
+    <button class="guide-btn" id="guideNextBtn" onclick="changeGuideSlide(1)">Next ▶</button>
+  </div>
+</div>
+</div>
+
+<script>
+function toggleSourceDropdown(e) {
+  e.stopPropagation();
+  const dropdown = document.getElementById('sourceMenuDropdown');
+  dropdown.classList.toggle('show');
+  document.getElementById('sourceMenuBtn').classList.toggle('active');
+}
+function closeSourceDropdown() {
+  const dropdown = document.getElementById('sourceMenuDropdown');
+  if(dropdown) dropdown.classList.remove('show');
+  const btn = document.getElementById('sourceMenuBtn');
+  if(btn) btn.classList.remove('active');
+}
+document.addEventListener('click', function(e) {
+  const wrapper = document.querySelector('.source-dropdown-wrapper');
+  if (wrapper && !wrapper.contains(e.target)) {
+    closeSourceDropdown();
+  }
+});
+</script>
+
+<script src="js/matrix-core.js"></script>
+<script src="js/matrix-home.js"></script>
+</body>
+</html>

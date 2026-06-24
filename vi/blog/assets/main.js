@@ -1,0 +1,1 @@
+const bar=document.getElementById('progress');if(bar){window.addEventListener('scroll',()=>{const h=document.documentElement;const sc=h.scrollTop;const max=h.scrollHeight-h.clientHeight;bar.style.width=(max?sc/max*100:0)+'%'})}

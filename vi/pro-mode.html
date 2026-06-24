@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  
+  <title>Matrix Hanzi Pro - Pro Mode</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5Z8WV4CPH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H5Z8WV4CPH');
+  </script>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link href="pro-mode.css" rel="stylesheet" />
+</head>
+<body>
+  <main class="pro-shell" id="proShell">
+    <div class="pro-bg-orb orb-a"></div><div class="pro-bg-orb orb-b"></div>
+    <header class="pro-topbar">
+      <button class="pro-btn ghost" id="backHomeBtn" type="button">← Trang chủ</button>
+      <div class="pro-title"><span>PRO MODE</span><small id="proListName">Đang tải...</small></div>
+      <div class="pro-stat-wrap"><span id="sessionStat">0 từ • 00:00</span><button class="pro-icon" id="themeToggleBtn" type="button">☀️</button></div>
+    </header>
+    <section class="pro-stage">
+      <div class="pro-empty" id="emptyState" hidden>
+        <div class="pro-empty-card"><div class="pro-empty-icon">📚</div><h1>Chưa có danh sách để luyện</h1><p id="emptyMessage">Hãy quay lại Trang chủ, chọn bộ từ vựng, sau đó mở Pro Mode.</p><button class="pro-btn primary" id="emptyBackBtn" type="button">← Quay lại Trang chủ</button></div>
+      </div>
+      <div class="focus-wrap" id="focusWrap">
+        <div class="ghost-stack" id="proStack"></div>
+        <article class="current-card" id="currentCard">
+          <div class="current-meta"><span id="currentIndexLabel">STT 0</span><button class="mini-action" id="dictBtn" type="button">⌕ Tra</button></div>
+          <div class="current-content"><div class="current-hanzi" id="currentHanzi" translate = "no">—</div><div class="current-meaning" id="currentMeaning">—</div></div>
+          <div class="answer-area"><input id="proAnswerInput" class="answer-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Gõ lại hán tự..." /><div class="feedback" id="feedbackText">Enter để kiểm tra • Shift để nghe</div></div>
+        </article>
+      </div>
+    </section>
+    <footer class="pro-controlbar">
+      <div class="toggle-group"><button class="toggle active" id="toggleHanzi" type="button">Hán tự</button><button class="toggle active" id="toggleMeaning" type="button">Nghĩa</button><button class="toggle" id="toggleAudio" type="button">Âm thanh</button><button class="toggle" id="toggleMusic" type="button">Nhạc nền</button></div>
+      <div class="hint-line"><span>Enter kiểm tra</span><span>Shift nghe</span><span>Tab từ điển</span><span>Esc thoát</span></div>
+    </footer>
+    <section class="dict-overlay" id="dictionaryOverlay" aria-hidden="true"><div class="dict-card"><div class="dict-header"><div><small>Tra từ Hanzii</small><strong id="dictionaryWord">—</strong></div><button class="pro-icon" id="dictCloseBtn" type="button">✕</button></div><iframe id="dictionaryFrame" class="dict-frame" src="about:blank" title="Hanzii Dictionary"></iframe><div class="dict-footer"><span>Tab hoặc Esc để đóng</span><a id="dictionaryExternalLink" href="https://hanzii.net/" target="_blank" rel="noopener noreferrer">Mở ngoài ↗</a></div></div></section>
+  </main>
+  <script src="js_vi/matrix-core.js"></script>
+  <script src="js_vi/pro-mode.js"></script>
+</body>
+</html>

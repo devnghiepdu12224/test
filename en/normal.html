@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="google" content="notranslate">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Matrix Hanzi Pro - Workspace</title>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-H5Z8WV4CPH"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H5Z8WV4CPH');
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;family=Noto+Serif+SC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="normal.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+<div class="workspace-bg-art" aria-hidden="true">
+  <div class="bg-calligraphy bg-calligraphy-left">练</div>
+  <div class="bg-calligraphy bg-calligraphy-right">字</div>
+  <div class="bg-orb bg-orb-one"></div>
+  <div class="bg-orb bg-orb-two"></div>
+</div>
+
+<div class="screen active" id="workspaceScreen">
+<div class="workspace-layout">
+<nav class="top-navbar">
+  <div style="display:flex; align-items:center; gap:16px;">
+    <button class="btn" id="backToDashBtn">⇤ Home</button>
+    <div id="status" style="font-weight: 700; color: var(--accent-green); font-size:14px;">Running list...</div>
+  </div>
+  
+  <div class="nav-controls-wrapper">
+    <div class="mobile-collapse-menu" id="mobileCollapseMenu">
+      <button class="btn btn-danger" id="clearBtn">✕ Clear Answer</button>
+      <button class="btn" id="readAllBtn">🔊 Read All</button>
+      <button class="btn btn-primary" id="openImageDisplayBtn">🖼️ Images/Reset</button>
+      <button class="btn reset-data-btn" id="resetImageDataBtn" title="Reset saved image data" type="button">↺ Reset Data</button>
+      <div class="mobile-only-options" aria-label="Display and reading options"></div>
+    </div>
+    
+    <button aria-expanded="false" aria-label="Open configuration menu" class="btn toggle-mobile-menu-btn" id="toggleMobileMenuBtn">
+      <span class="desktop-menu-label">⚙ Features</span>
+      <span class="arrow-icon">▼</span>
+    </button>
+  </div>
+</nav>
+<div class="sub-panel">
+<span class="sub-panel-label">DISPLAY:</span>
+<label class="sub-panel-checkbox"><input checked="" class="toggle-col" data-col="2" type="checkbox"/> Hanzi</label>
+<label class="sub-panel-checkbox"><input class="toggle-col" data-col="3" type="checkbox"/> Pinyin</label>
+<label class="sub-panel-checkbox"><input checked="" class="toggle-col" data-col="4" type="checkbox"/> Meaning</label>
+<div class="sub-panel-read-mode">
+<span class="sub-panel-label">Reading Mode:</span>
+<select id="speakMode">
+<option value="1">Hanzi only </option>
+<option value="2">Hanzi + Meaning</option>
+</select>
+</div>
+</div>
+<div class="table-container">
+<table id="vocabTable">
+<thead>
+<tr>
+<th>STT</th><th>Notes</th><th>Hanzi</th><th>Pinyin</th><th>Meaning</th><th>Reactive Answer</th><th>Result</th><th>🔊</th><th>Lookup</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+<div aria-hidden="true" class="dictionary-popup-overlay" id="dictionaryPopupOverlay">
+<section aria-labelledby="dictionaryPopupTitle" aria-modal="true" class="dictionary-popup-card" role="dialog">
+<header class="dictionary-popup-header">
+<div class="dictionary-popup-title-wrap">
+<span class="dictionary-popup-icon">🔎</span>
+<div>
+<div class="dictionary-popup-title" id="dictionaryPopupTitle">Lookup Hanzii</div>
+<div class="dictionary-popup-word" id="dictionaryPopupWord">No word selected</div>
+</div>
+</div>
+<button aria-label="Close lookup popup" class="dictionary-popup-close" data-dictionary-close="" type="button">✕</button>
+</header>
+<div class="dictionary-popup-frame-wrap">
+<iframe class="dictionary-popup-frame" id="dictionaryPopupFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="about:blank" title="Hanzii Dictionary"></iframe>
+</div>
+<footer class="dictionary-popup-footer">
+<span id="dictionaryPopupStatus">Tab or Esc to open/close</span>
+<a href="https://hanzii.net/" id="dictionaryPopupExternalLink" rel="noopener noreferrer" target="_blank">Open externally ↗</a>
+</footer>
+</section>
+</div>
+<div class="modal-image-overlay" id="imageModalOverlay">
+<div class="modal-image-card">
+<div class="modal-img-container">
+<button class="modal-close-btn" id="closeModalBtn">✕</button>
+<div id="modalPlaceholder" style="color: var(--text-secondary); font-size:13px; text-align:center;">Loading image data...</div>
+<img alt="Visual" id="modalImageEl" src="" style="display:none;"/>
+</div>
+<div class="modal-footer">
+<div class="modal-status-bar">
+<span style="color: var(--accent-green)">● AUTO SYNCING</span>
+<span id="modalSourceBadge" style="background: rgba(255,255,255,0.1); padding:2px 6px; border-radius:6px;">SYSTEM</span>
+</div>
+<div id="modalCaptionText">No word selected.</div>
+</div>
+</div>
+</div>
+<script src="js/matrix-core.js"></script><script src="js/matrix-workspace.js"></script></body>
+</html>
